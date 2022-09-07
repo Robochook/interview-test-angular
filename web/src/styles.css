@@ -14,3 +14,25 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+.banner-msg {
+padding:10px;
+display:block;
+text-align:center;
+}
+
+td.grade {
+  text-align:center;
+}
+
+.green td.grade {
+  background-color: #00ff00 !important;
+}
+
+.orange td.grade {
+  background-color: #FFA500 !important;
+}
+
+.red td.grade {
+  background-color: #ff0000 !important;
+}

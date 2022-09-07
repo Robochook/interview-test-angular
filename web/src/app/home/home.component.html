@@ -9,14 +9,18 @@
       <th>Lastname</th>
       <th>Email</th>
       <th>Major</th>
+      <th>AverageGrade</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let student of students">
+    <tr *ngFor="let student of students" [ngClass]="{'red': student.avgGrade < 50,
+    'orange': student.avgGrade > 50 && student.avgGrade < 80, 
+    'green' : student.avgGrade > 80}">
       <td>{{ student.firstName }}</td>
       <td>{{ student.lastName }}</td>
       <td>{{ student.email }}</td>
       <td>{{ student.major }}</td>
+      <td class="grade">{{ student.avgGrade }}</td>
     </tr>
   </tbody>
 </table>
