@@ -7,11 +7,6 @@
     <form #form="ngForm" (ngSubmit)="submit(form)">
 
         <div class="form-group">
-            <label for="idnum">Student Id</label><br>
-            <input type="number" name="idnum" class="form-control" ngModel>
-        </div>
-
-        <div class="form-group">
             <label for="firstname">First Name</label><br>
             <input type="text" name="firstname" class="form-control" ngModel>
         </div>
@@ -33,7 +28,7 @@
 
         <div class="form-group">
             <label for="average">Average Grade</label><br>
-            <input type="number" name="average" class="form-control" ngModel>
+            <input type="number" name="average" min="0" max="100" class="form-control" ngModel>
         </div>
 
         <button class="btn btn-primary" type="submit">Submit</button>

@@ -65,6 +65,8 @@ namespace StudentApi.Services
         /// <exception cref="NotImplementedException"></exception>
         public bool AddStudent(Student student)
         {
+            // validate data
+
             //throw new NotImplementedException();
             students.Add(student);
 

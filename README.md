@@ -21,6 +21,10 @@ Please enter/replace your details below.
 | Date | 2022-09-07 |
 | Start Time | 18:32+12:00 |
 | Finish Time | 20:45+12:00 |
+|   |   |
+| Date | 2022-09-08 |
+| Start Time | 17:42+12:00 |
+| Finish Time | 21:17+12:00 |
 
 ## Requirements
 In order to complete this test you will need the following tools:
@@ -38,8 +42,8 @@ The code in this repository will compile and run on Windows, macOS and Linux.
 > 
 - [x] Add to the student their average grade and flow it through from the API to the frontend
 - [x] Add a page to the frontend to allow students to be added
-- [ ] Add an endpoint to the API to allow students to be added
-- [ ] Implement the `Add` method of the `IStudentService`
+- [x] Add an endpoint to the API to allow students to be added
+- [x] Implement the `Add` method of the `IStudentService`
 - [x] Style the display of the average grade so that it has three colorations:
   - Green: average grade greater than 80%
   - Orange: average grade less than 80% and greater than 50%

@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import {NgForm} from '@angular/forms';
-import { idText } from 'typescript';
+import { Inject } from '@angular/core';
 
 @Component({
   selector: 'app-add-student',
@@ -12,46 +10,80 @@ import { idText } from 'typescript';
 })
 export class AddStudentComponent implements OnInit {
 public message = "";
+public success = true;
+public fname;
+public lname;
+public email;
+public major;
+public avg;
+public baseUrl;
+private http : HttpClient;
 
-  constructor() { }
+  constructor(http: HttpClient,@Inject('BASE_URL') baseUrl: string) {
+    this.http = http;
+    this.baseUrl =  baseUrl;
+  }
 
   ngOnInit() {
   }
 
   submit(form: NgForm) {
 
-    console.log("Form Submitted!");
-
-    console.log(form.value); 
+    // Valid flag
     var valid = true;
+    
+    // Store values in shorter variables
+    this.fname = form.value.firstname;
+    this.lname = form.value.lastname;
+    this.email = form.value.email;
+    this.major = form.value.major;
+    this.avg = form.value.average;
 
     // Add validation here
+    // Check if all fields ahve been filled out
+    if(this.fname === undefined || this.fname === "" ||
+    this.lname === undefined || this.lname === "" ||
+    this.email === undefined || this.email === "" ||
+    this.major === undefined || this.major === "" ||
+    this.avg === undefined || this.avg === "") {
+      valid = false;
+    }
+
+    // if avg above 100, set it back to 100
+    if(this.avg > 100) {
+      this.avg = 100;
+    }
+    // if avg below 0, set to 0
+    if(this.avg < 0) {
+      this.avg = 0;
+    }
 
     // If validation passess
     if(valid) {
 
-      var idNum = form.value.idnum;
-      var fname = form.value.firstname;
-      var lname = form.value.lastname;
-      var email = form.value.email;
-      var major = form.value.major;
-      var avg = form.value.average;
-
      var student: Student;
+
      student = {
-      id: idNum,
-      firstName: fname,
-      lastName: lname,
-      email: email,
-      major: major,
-      avgGrade: avg
+      id: 100, // Make this dynamic
+      firstName: this.fname,
+      lastName: this.lname,
+      email: this.email,
+      major: this.major,
+      avgGrade: this.avg
     }
 
-      console.log(student);
+    // Make API Call to add student
+    this.http.post<boolean>(this.baseUrl + 'students/add',student).subscribe(result => {
+      console.log(result);
+      this.success = result;
+    }, error => console.error(error)); 
 
-      // Make API Call to add student
-
-      this.message = "Form was submitted";
+      if(this.success) {
+        this.message = "Form was submitted";
+      }
+      else {
+        this.message = "An error occured, please try again";
+      }
 
     }
     else {

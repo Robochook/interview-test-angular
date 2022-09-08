@@ -1,17 +1,17 @@
-﻿using StudentApi.Mediatr.Students;
-using StudentApi.Models.Students;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
+using StudentApi.Mediatr.Students;
+using StudentApi.Models.Students;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Web.Http.Cors;
 
 namespace StudentApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [EnableCors(origins: "http://localhost:8000:4200", headers: "*", methods: "*")]
     public class StudentsController : ControllerBase
     {
         private IMediator mediator;
@@ -38,6 +38,20 @@ namespace StudentApi.Controllers
             var reponse = await Mediator.Send(new GetStudentsRequest());
 
             return reponse.Students;
+        }
+
+        /// <summary>
+        /// Save a student
+        /// </summary>
+        /// <returns>
+        /// Success as a Boolean
+        /// </returns>
+        [Route("add")]
+        [HttpPost]        
+        public async Task<bool> AddStudent(Student student)
+        {
+            var response = await Mediator.Send(new PostStudentsRequest(student));
+            return response.Success;
         }
     }
 }
